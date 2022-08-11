@@ -18,7 +18,7 @@ Instructions to run the flask application
 
 git init
 
-git remote add upstream git@github.com:Jay-Keww/CitiTraining.git
+git remote add upstream git@github.com:zentan2/Jinthar5.git
 
 py -m venv venv
 
