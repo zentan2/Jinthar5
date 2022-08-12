@@ -1,8 +1,9 @@
-from crypt import methods
 from flask import Flask, request
 from Service import stocksData
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/") #This is the route to the home page
 def hello_world():
@@ -10,8 +11,11 @@ def hello_world():
 
 @app.route("/api/stocks/<ticker>", methods=["POST", "GET"])
 def stock(ticker):
-    return f"<h1>{stocksData.stockInfo(ticker)}</h1>"
+    return f"{stocksData.stockInfo(ticker)}"
 
+@app.route("/api/portfolio/<number>", methods=["POST", "GET"])
+def portfolio(number):
+    return f'{stocksData.portfolioInfo(number)}'
 
 # driver function
 if __name__ == '__main__':
