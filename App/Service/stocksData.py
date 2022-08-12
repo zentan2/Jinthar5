@@ -23,17 +23,29 @@ def stockInfo(stock):
         }
         return json.dumps(stockDictionary)
 
+
 def portfolioInfo(number, stocksPortfolio=portfolio):
     # obtains stock information for all the stocks in the list
     ###  change to retrieve data from sql!
     portfolio = []
-    for stocks in stocksPortfolio[number]:
-        portfolio.append(stockInfo(stocks))
-    return portfolio
+    tickers = yf.Tickers(" ".join(stocksPortfolio[number]))
+
+    for stockTicker, stockInfo in tickers.tickers.items():
+        temp = {
+            "symbol":stockInfo.info['symbol'],
+            "name":stockInfo.info['shortName'],
+            "currentPrice":stockInfo.info['regularMarketPrice'],
+            "dayHigh":stockInfo.info['dayHigh'],
+            "dayLow":stockInfo.info['dayLow'],
+        }
+        portfolio.append(temp)
+        
+    return json.dumps(portfolio)
 
 
 # testing code
 if __name__ == "__main__":
     # print(stockInfo("aapl"))
     # print(stockInfo("12345"))
-    print(portfolioInfo(3))     
+    # print(portfolioInfo(2))   
+    print(portfolioInfo(1))     

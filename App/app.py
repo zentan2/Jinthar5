@@ -6,7 +6,7 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route("/") #This is the route to the home page
-def hello_world():
+def index():
     return "This is the homepage"
 
 @app.route("/api/stocks/<ticker>", methods=["POST", "GET"])
@@ -15,7 +15,7 @@ def stock(ticker):
 
 @app.route("/api/portfolio/<number>", methods=["POST", "GET"])
 def portfolio(number):
-    return f'{stocksData.portfolioInfo(number)}'
+    return f'{stocksData.portfolioInfo(int(number))}'
 
 # driver function
 if __name__ == '__main__':
