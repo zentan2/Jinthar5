@@ -1,4 +1,6 @@
+from crypt import methods
 from flask import Flask, request
+from Service import stocksData
 
 app = Flask(__name__)
 
@@ -6,12 +8,9 @@ app = Flask(__name__)
 def hello_world():
     return "This is the homepage"
 
-# @app.route("/search", methods=['POST']) #this page allows you to submit stock tickers
-# def searchTickers():
-#     tickers = []
-#     tickers = request.get_json().split()
-#     return tickers
-
+@app.route("/api/stocks/<ticker>", methods=["POST", "GET"])
+def stock(ticker):
+    return f"<h1>{stocksData.stockInfo(ticker)}</h1>"
 
 
 # driver function
