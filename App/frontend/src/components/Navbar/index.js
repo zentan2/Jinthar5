@@ -14,7 +14,7 @@ const Navbar = () => {
     <>
       <Nav>
         <NavLink to='/'>
-          <img src={logo} alt='logo' />
+          <img src={logo} alt='logo' width="150" height="110"/>
         </NavLink>
         {/* <Bars /> */}
         <NavMenu>
@@ -24,7 +24,6 @@ const Navbar = () => {
           <NavLink to='/markets' activeStyle>
             Markets
           </NavLink>
-     
         </NavMenu>
       </Nav>
     </>

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 //Navigation Bar
 export const Nav = styled.nav`
-  background: #008b87;
+  background: #003B70;
   height: 64px;
   display: flex;
   justify-content: space-between;
@@ -13,7 +13,7 @@ export const Nav = styled.nav`
   width: 100vw;
 `;
 
-//Overview, Usage,Error Links
+//Overview, Usage, Error Links
 export const NavLink = styled(Link)`
   color: #fff;
   display: flex;

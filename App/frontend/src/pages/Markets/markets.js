@@ -1,5 +1,6 @@
 import React from 'react'
 import api from '../api'
+import Navbar from '../../components/Navbar'
 import {
   LineChart,
   XAxis,
@@ -9,6 +10,7 @@ import {
   YAxis,
   Label
 } from 'recharts'  
+
 const Markets = () => {
     // Create state variables
     let [responseData, setResponseData] = React.useState('')
@@ -34,8 +36,8 @@ const Markets = () => {
             style={{
                 background: '#EEE',
                 padding: '10%',
-            
             }}>
+            <Navbar/>
             <h1
                 style={{
                     background: 'black',
