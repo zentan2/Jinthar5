@@ -1,5 +1,6 @@
 import React from 'react'
 import api from '../api'
+import Navbar from '../../components/Navbar'
 import {
   LineChart,
   XAxis,
@@ -36,6 +37,7 @@ const Markets = () => {
                 padding: '10%',
             
             }}>
+            <Navbar/>
             <h1
                 style={{
                     background: 'black',

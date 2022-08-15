@@ -24,7 +24,6 @@ const Navbar = () => {
           <NavLink to='/markets' activeStyle>
             Markets
           </NavLink>
-     
         </NavMenu>
       </Nav>
     </>
