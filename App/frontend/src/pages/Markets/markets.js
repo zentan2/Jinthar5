@@ -10,6 +10,7 @@ import {
   YAxis,
   Label
 } from 'recharts'  
+
 const Markets = () => {
     // Create state variables
     let [responseData, setResponseData] = React.useState('')
@@ -35,7 +36,6 @@ const Markets = () => {
             style={{
                 background: '#EEE',
                 padding: '10%',
-            
             }}>
             <Navbar/>
             <h1
