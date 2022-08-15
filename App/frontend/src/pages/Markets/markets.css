@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  html {
+    background: rgb(203, 229, 241);
+    min-height: 720px;
+    min-width: 320px;
+  }
+  
+  html,
+  body {
+    height: 100%;
+  }
+  
+  #root {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+  }
+  
+.Markets {
+    background: '#fff';
+    padding: '5%';
+    font-family: '"Lucida Console", Monaco, monospace'
+}
