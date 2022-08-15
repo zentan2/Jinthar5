@@ -11,7 +11,7 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from app import routes, models, stocksData
+from app import routes, models
 
 CORS(app)
 app.run(debug=True)
