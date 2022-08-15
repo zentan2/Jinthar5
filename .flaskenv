@@ -1,1 +1,0 @@
-FLASK_APP=portfolio_manager.py
