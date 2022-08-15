@@ -4,13 +4,16 @@ import styled from 'styled-components';
 
 //Navigation Bar
 export const Nav = styled.nav`
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
   background: #003B70;
   height: 64px;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem calc((100vw - 1000px) / 2);
   z-index: 10;
-  width: 100vw;
 `;
 
 //Overview, Usage, Error Links

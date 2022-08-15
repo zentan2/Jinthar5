@@ -36,7 +36,8 @@ const Markets = () => {
             style={{
                 background: '#EEE',
                 padding: '10%',
-            }}>
+            }}
+            >
             <Navbar/>
             <h1
                 style={{
