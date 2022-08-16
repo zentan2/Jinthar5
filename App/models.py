@@ -1,5 +1,5 @@
 import sqlite3
-from app import db
+from App import db
 
 class Portfolio(db.Model):
     id = db.Column(db.Integer, primary_key = True)
