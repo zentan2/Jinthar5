@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import json
 import pandas as pd
-from app import app
+from App import app
 import yfinance as yf
 
 from .models import Portfolio
