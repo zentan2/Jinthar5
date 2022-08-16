@@ -4,19 +4,7 @@ import pandas as pd
 from app import app
 import yfinance as yf
 
-stocks = [
-    {"PortfolioId":1,"Ticker":"OV8.SI","Quantity":10000,"Price":1.65,"Name":"Sheng Siong","MarketValue":1.62,"UnrealisedPnL":-300.0,"UnrealisedPnLPercentage":-1.82,"country":"SGD","DailyPnL":0.02,"DailyPnLPercentage":1.25},
-    {"PortfolioId":1,"Ticker":"G3B.SI","Quantity":20000,"Price":3.31,"Name":"Nikko AM STI ETF","MarketValue":3.34,"UnrealisedPnL":600.0,"UnrealisedPnLPercentage":0.91,"country":"SGD","DailyPnL":0.01,"DailyPnLPercentage":0.3},
-    {"PortfolioId":1,"Ticker":"D05.SI","Quantity":8000,"Price":31.97,"Name":"DBS","MarketValue":32.8,"UnrealisedPnL":6640.0,"UnrealisedPnLPercentage":2.6,"country":"SGD","DailyPnL":-0.19,"DailyPnLPercentage":-0.58},
-    {"PortfolioId":1,"Ticker":"U11.SI","Quantity":16000,"Price":25.3,"Name":"UOB","MarketValue":27.2,"UnrealisedPnL":30400.0,"UnrealisedPnLPercentage":7.51,"country":"SGD","DailyPnL":-0.12,"DailyPnLPercentage":-0.44},
-    {"PortfolioId":2,"Ticker":"nvda","Quantity":100,"Price":177.22,"Name":"NVIDIA Corporation","MarketValue":190.32,"UnrealisedPnL":1310.0,"UnrealisedPnLPercentage":7.39,"country":"USD","DailyPnL":3.23,"DailyPnLPercentage":1.73},
-    {"PortfolioId":2,"Ticker":"meta","Quantity":20,"Price":170.5,"Name":"Meta Platforms, Inc.","MarketValue":180.89,"UnrealisedPnL":207.8,"UnrealisedPnLPercentage":6.09,"country":"USD","DailyPnL":0.39,"DailyPnLPercentage":0.22},
-    {"PortfolioId":2,"Ticker":"intc","Quantity":50,"Price":38.22,"Name":"Intel Corporation","MarketValue":36.34,"UnrealisedPnL":-94.0,"UnrealisedPnLPercentage":-4.92,"country":"USD","DailyPnL":0.23,"DailyPnLPercentage":0.64},
-    {"PortfolioId":2,"Ticker":"spy","Quantity":10,"Price":410.22,"Name":"SPDR S&P 500","MarketValue":428.86,"UnrealisedPnL":186.4,"UnrealisedPnLPercentage":4.54,"country":"USD","DailyPnL":1.76,"DailyPnLPercentage":0.41},
-    {"PortfolioId":2,"Ticker":"aapl","Quantity":20,"Price":120.5,"Name":"Apple Inc.","MarketValue":173.19,"UnrealisedPnL":1053.8,"UnrealisedPnLPercentage":43.73,"country":"USD","DailyPnL":1.09,"DailyPnLPercentage":0.63}
-    ]
-
-all_df = pd.DataFrame(stocks)
+from .models import Portfolio
 
 def populatePortfolioInfo(portfolios):
     # obtains stock information for all the stocks in the list
@@ -68,17 +56,16 @@ def stockInfo(ticker):
     return json.dumps(stockDictionary)
 
 @app.route("/api/portfolio", methods=["GET"])
-def getAllPorfolio(df=all_df):
-    return df.to_json(orient="records")
+def getAllPorfolio():
+    return jsonify({"Portfolio":[stocks.json() for stocks in Portfolio.query.all()]}), 200
 
-@app.route("/api/portfolio/<Id>", methods=["POST", "GET"])
-def getUserPortfolio(Id, df=all_df):
-    temp_df = df[df['PortfolioId'] == int(Id)]
-    return temp_df.to_json(orient="records")
+@app.route("/api/portfolio/<Country>", methods=["POST", "GET"])
+def getUserPortfolio(Country):
+    return jsonify({"Portfolio":[stocks.json() for stocks in Portfolio.query.filter_by(Country=Country.upper())]}), 200
 
-@app.route("/api/portfolio/refresh", methods=["GET"])
-def getAllPorfolioRefresh(df=all_df):
-    df = retrieveStockUpdates(df)
-    #add code to update to database
-    return df.to_json(orient="records")
+# @app.route("/api/portfolio/refresh", methods=["GET"])
+# def getAllPorfolioRefresh(df=all_df):
+#     df = retrieveStockUpdates(df)
+#     #add code to update to database
+#     return df.to_json(orient="records")
 
