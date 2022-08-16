@@ -1,5 +1,6 @@
 import sqlite3
 from App import db
+from decimal import Decimal
 
 class Portfolio(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -39,12 +40,14 @@ class Portfolio(db.Model):
             "Price": self.Price, 
             "Name": self.Name, 
             "Country": self.Country, 
-            "MarketValue": self.MarketValue, 
+            "MarketValue": Decimal(float(self.MarketValue)), 
             "DailyPnL": self.DailyPnL, 
             "DailyPnLPercentage": self.DailyPnLPercentage, 
             "UnrealisedPnL": self.UnrealisedPnL, 
             "UnrealisedPnLPercentage":self.UnrealisedPnLPercentage
             }
+    def getTickers(self):
+        return self.Ticker
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
