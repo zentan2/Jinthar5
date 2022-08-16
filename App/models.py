@@ -8,8 +8,11 @@ class Portfolio(db.Model):
     Name = db.Column(db.String(200), nullable=False)
     Country = db.Column(db.String(50), nullable=False)
     MarketValue = db.Column(db.Numeric(10,2), nullable=False)
+    DailyPnL = db.Column(db.Numeric(10,2), nullable=False)
+    DailyPnLPercentage = db.Column(db.Numeric(10,2), nullable=False)
     UnrealisedPnL = db.Column(db.Numeric(10,2), nullable=False)
     UnrealisedPnLPercentage = db.Column(db.Numeric(10,2), nullable=False)
+
 
     def __repr__(self):
         return '<Portfolio {}>'.format(self.Ticker)
