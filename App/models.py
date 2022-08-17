@@ -34,6 +34,9 @@ class Portfolio(db.Model):
     def getUnrealisedPnL(self):
         return self.UnrealisedPnL
 
+    def getDailyPnL(self):
+        return self.DailyPnL
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
