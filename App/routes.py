@@ -24,6 +24,10 @@ def getUser_Portfolio(Country):
 def getPortfolioTotal(Country):
     return processing.getPortfolioTotal(Country)
 
+@app.route("/api/portfolio/daily/<Country>", methods=["POST", "GET"])
+def getPortfolioDaily(Country):
+    return processing.getPortfolioDaily(Country)
+
 @app.route("/api/portfolio/stock/<ticker>", methods=["POST", "GET"])
 def getPortfolioStock(ticker):
     return processing.getPortfolioStock(ticker)
