@@ -1,6 +1,7 @@
 import React from 'react'
 import api from '../api'
 import Navbar from '../../components/Navbar'
+import Collapsible from '../../components/Collapsible/Collapsible'
 import {
   LineChart,
   XAxis,
