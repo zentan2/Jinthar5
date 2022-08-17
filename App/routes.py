@@ -22,7 +22,7 @@ def getUser_Portfolio(Country):
 
 @app.route("/api/portfolio/total/<Country>", methods=["POST", "GET"])
 def getPortfolioTotal(Country):
-    return processing.getPortfolioTotal(Country)
+    return processing.getPortfolioTotal2(Country)
 
 @app.route("/api/portfolio/daily/<Country>", methods=["POST", "GET"])
 def getPortfolioDaily(Country):
