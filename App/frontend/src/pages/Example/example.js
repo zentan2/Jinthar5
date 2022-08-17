@@ -11,7 +11,7 @@ import {
   Label
 } from 'recharts'  
 
-const Markets = () => {
+const Example = () => {
     // Create state variables
     let [responseData, setResponseData] = React.useState('')
     let [ticker, setTicker] = React.useState('')
@@ -36,31 +36,17 @@ const Markets = () => {
             e.preventDefault();        
             alert("Place Holder for Pop Up");
           };
-       
-        //   alert style
+          
         function promptbs() {
             let text;
             let quantity = prompt("Quantity:", "Min Value 1");
-            let price = prompt("Price:", "Numbers Only");
             if (quantity == null || quantity == "") {
               text = "User cancelled the prompt.";
             } else {
-            text = "You have updated " + ticker + " with a quantity value of " + quantity + " at $" + price + " each !";
+              text = "You have updated quantiy value of " + quantity + "!";
             }
             document.getElementById("quantityinput").innerHTML = text;
           }
-        
-        // submit form style WIP
-          function updatebs() {
-            let txt;
-            let qty = prompt("Quantity:", "Min Value 1");
-            if (qty == null || qty == "") {
-              txt = "User cancelled the prompt.";
-            } else {
-                txt = "You have updated quantiy value of " + qty + "!";
-            }
-            document.getElementById("quantityupdate").innerHTML = txt;
-          } 
 
         function openForm() {
             document.getElementById("loginPopup").style.display = "block";
@@ -93,8 +79,8 @@ const Markets = () => {
                     color: 'white',
                     padding: '1rem',
                     display: 'inline-block'
-                }}>Stock History</h1>
-            <h2>Stock Data Graph</h2>
+                }}>Stock Market</h1>
+            <h2>Analyze Stock Data</h2>
             <form onSubmit={fetchData}>
                 <fieldset style={{padding:4}}>
                     <legend>Search Stock Market</legend>
@@ -112,7 +98,7 @@ const Markets = () => {
                             name="ticker"
                             id="ticker"
                             type='text'
-                            placeholder='Insert stock ticker: AAPL, TSLA'
+                            placeholder='Insert stock ticker such as AAPL, TSLA etc.'
                             value={ticker}
                             onChange={(e) => setTicker(e.target.value)}
                         />
@@ -123,7 +109,7 @@ const Markets = () => {
                         marginBottom: 10,
                         cursor: PointerEvent,
                         maxWidth: 150,
-                        background: '#0e6d8a'}}>Search</button>
+                        background: '#0e6d8a'}}>Submit</button>
                 </fieldset>
             </form>
             <p>{message}</p>
@@ -145,38 +131,46 @@ const Markets = () => {
                 <Line type="monotone" dataKey="close" stroke="#ff7300" yAxisId={0} />
             </LineChart>
 
-            {/* first button  position: 'absolute', left: '75%', transform: 'translateX(-50%)'*/}
+            {/*} <button type='buysell'
+                    style={{
+                        borderRadius: 5,
+                        marginBottom: 10,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        position: 'relative',
+                        cursor: PointerEvent,
+                        maxWidth: 150,
+                        background: '#d4281c'}}>Buy / Sell Stock
+                    </button> */} 
+             
             <button className="bullsellb" 
-            style={{background: '#d4281c',}} 
-            // above statement centers the button 1
+            style={{background: '#d4281c'}}
             onClick={promptbs} >
-            Buy / Sell Stock Button Alert Style
-            </button> {""}
-
-
+            Buy / Sell Stock Button 1
+            </button>
             <p id="quantityinput"></p>  
+            
 
-                        
-            {/* Trial for pop up form , position: 'absolute', left: '25%', transform: 'translateX(-50%)'*/}
             <button className="bullsellbb" 
             style={{background: '#d4281c'}}
             onClick={openForm} >
-            Buy / Sell Stock Button Popup Form (Not Working)
+            Buy / Sell Stock Button 2
             </button>
-            
+            <p id="quantityinput"></p>  
         
            {/* Click for Redirect*/}
-            <p><a href="http://localhost:3000/" onclick="centeredPopup(this.href,'myWindow','700','300','yes');return false">Home Page Redirect Link Only</a></p>        
+            <p><a href="http://localhost:3000/" onclick="centeredPopup(this.href,'myWindow','700','300','yes');return false">Home Page Redirect</a></p>        
             
             {/* need create new function and don't use on submit to update*/}                    
-            <form onSubmit={updatebs}> 
+            <form onSubmit={fetchData}> 
                 <fieldset style={{padding:4}}>
                     <legend>Update Stock Quantity</legend>
                     <label style = {{ 
                         paddingLeft: 10,
                         // paddingRight: 450,
                         }}htmlFor="ticker">
-                                          
+                   
+                       
                     </label>
                     Quantity: 
                     <input style={{
@@ -195,12 +189,11 @@ const Markets = () => {
                         marginBottom: 10,
                         cursor: PointerEvent,
                         maxWidth: 150,
-                        background: '#0e6d8a'}}>Update Button Not Working</button>
-                     <p id="quantityupdate"></p>     
+                        background: '#0e6d8a'}}>Update</button>
                 </fieldset>
             </form>
         </div>        
     )
 }
 
-export default Markets
+export default Example
