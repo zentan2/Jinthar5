@@ -1,3 +1,5 @@
+from http.client import NOT_EXTENDED
+from traceback import print_last
 import pandas as pd
 from .models import Portfolio
 import yfinance as yf
@@ -5,9 +7,9 @@ import json
 import pandas as pd
 from flask import Flask, request, jsonify
 from App import db
+from sqlalchemy import select, text, column
 
-def getDf():
-    df = pd.DataFrame([stocks.json() for stocks in Portfolio.query.all()])
+
 
 def stockInfo(ticker):
     #obtains information of a single stock
@@ -21,14 +23,20 @@ def stockInfo(ticker):
             "currentPrice":stockData.info['regularMarketPrice'],
             "dayHigh":stockData.info['dayHigh'],
             "dayLow":stockData.info['dayLow'],
+            "dailyPnL": round((stockData.info["regularMarketPrice"] - stockData.info["previousClose"]),2),
+            "dailyPnLPercentage": round(((stockData.info["regularMarketPrice"] - stockData.info["previousClose"]) / stockData.info["previousClose"])*100,2),
         }
-    return json.dumps(stockDictionary)
+    return stockDictionary
 
 def getAllPorfolio():
     return jsonify({"Portfolio":[stocks.json() for stocks in Portfolio.query.all()]}), 200
 
 def getUserPortfolio(Country):
     return jsonify({"Portfolio":[stocks.json() for stocks in Portfolio.query.filter_by(Country=Country.upper())]}), 200
+
+def getDf():
+    df = pd.DataFrame([stocks.json() for stocks in Portfolio.query.all()])
+    return df
 
 def populatePortfolioInfo(portfolios):
     # obtains stock information for all the stocks in the list
@@ -39,7 +47,7 @@ def populatePortfolioInfo(portfolios):
     for stockTicker, stockInfo in tickers.tickers.items():
         portfolio[stockTicker] = {
             "name":stockInfo.info['shortName'],
-            "currentPrice":float(round(stockInfo.info['regularMarketPrice']),2),
+            "currentPrice":round(float(stockInfo.info['regularMarketPrice']),2),
             "dailyPnL": round((stockInfo.info["regularMarketPrice"] - stockInfo.info["previousClose"]),2),
             "dailyPnLPercentage": round(((stockInfo.info["regularMarketPrice"] - stockInfo.info["previousClose"]) / stockInfo.info["previousClose"])*100,2),
             "country": (stockInfo.info["currency"])
@@ -58,9 +66,23 @@ def retrieveStockUpdates(df):
     df['UnrealisedPnL'] = (df['MarketValue'] - df['Price']) * df['Quantity']
     df['UnrealisedPnLPercentage'] = round(((df['MarketValue']-df['Price'])/df['Price'])*100,2)
     return df
+
+def refreshPortfolio():
+    # 1. get all the tickers, price, quantity in portfolio and loop through
+    #     2. using new ticker get info of all the new rows Needed
+    #     3. calculate unrealised pul
+    #     4. update row with data from 2 and 3 (you can update by passing in dict)
+    test = []
+    for stockObjects in Portfolio.query.all():
+        stock = stockObjects.json()
+        ticker = stock['Ticker']
+        quantity = stock['Quantity']
+        price = stock['Price']
+        stock = newTickerInfo(ticker, int(quantity), float(price))
+        Portfolio.query.filter_by(Ticker=ticker).update(stock)
+        db.session.commit()
     
-def getDf():
-    df = pd.DataFrame([stocks.json() for stocks in Portfolio.query.all()])
+    return "success"
 
 def newTickerInfo(ticker, quantity, price):
     stockData = yf.Ticker(ticker)
@@ -77,8 +99,8 @@ def newTickerInfo(ticker, quantity, price):
             "MarketValue": round(stockData.info['regularMarketPrice'],2),
             "UnrealisedPnL": round(((stockData.info['regularMarketPrice']-price) * quantity),2),
             "UnrealisedPnLPercentage": round(((stockData.info['regularMarketPrice']-price)/price)*100,2),
-            "dailyPnL": round((stockData.info["regularMarketPrice"] - stockData.info["previousClose"]),2),
-            "dailyPnLPercentage": round(((stockData.info["regularMarketPrice"] - stockData.info["previousClose"]) / stockData.info["previousClose"])*100,2)
+            "DailyPnL": round((stockData.info["regularMarketPrice"] - stockData.info["previousClose"]),2),
+            "DailyPnLPercentage": round(((stockData.info["regularMarketPrice"] - stockData.info["previousClose"]) / stockData.info["previousClose"])*100,2)
         }
         return newTicker
 
@@ -97,8 +119,8 @@ def addStock(ticker, quantity, price, country):
             Name = newStock['Name'], 
             Country = newStock['Country'], 
             MarketValue = newStock['MarketValue'], 
-            DailyPnL = newStock['dailyPnL'], 
-            DailyPnLPercentage = newStock['dailyPnLPercentage'], 
+            DailyPnL = newStock['DailyPnL'], 
+            DailyPnLPercentage = newStock['DailyPnLPercentage'], 
             UnrealisedPnL = newStock['UnrealisedPnL'], 
             UnrealisedPnLPercentage = newStock['UnrealisedPnLPercentage']
             )
@@ -106,3 +128,16 @@ def addStock(ticker, quantity, price, country):
         db.session.commit()
         
     return "success"
+
+def deleteStock(ticker, country):
+    if country.upper() == "SGD":
+        ticker += ".si"
+
+    stock = [stock.json() for stock in Portfolio.query.filter_by(Ticker=ticker.upper())]
+    if len(stock) == 0:
+        return "Stock not found in portfolio"
+    else:
+        Portfolio.query.filter_by(Ticker=ticker.upper()).delete()
+        db.session.commit()
+        return "Success", 200
+   
