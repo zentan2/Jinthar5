@@ -42,10 +42,11 @@ const Markets = () => {
             let text;
             let quantity = prompt("Quantity:", "Min Value 1");
             let price = prompt("Price:", "Numbers Only");
+            let country = prompt("Country:", "USD or SGD Only");
             if (quantity == null || quantity == "") {
               text = "User cancelled the prompt.";
             } else {
-            text = "You have updated " + ticker + " with a quantity value of " + quantity + " at $" + price + " each !";
+            text = "You have updated " + ticker + " (" + country + ") with a quantity value of " + quantity + " at $" + price + " each !";
             }
             document.getElementById("quantityinput").innerHTML = text;
           }
@@ -145,7 +146,7 @@ const Markets = () => {
                 <Line type="monotone" dataKey="close" stroke="#ff7300" yAxisId={0} />
             </LineChart>
 
-            {/* first button  position: 'absolute', left: '75%', transform: 'translateX(-50%)'*/}
+            {/* first button  in style position: 'absolute', left: '75%', transform: 'translateX(-50%)'*/}
             <button className="bullsellb" 
             style={{background: '#d4281c',}} 
             // above statement centers the button 1
@@ -157,18 +158,18 @@ const Markets = () => {
             <p id="quantityinput"></p>  
 
                         
-            {/* Trial for pop up form , position: 'absolute', left: '25%', transform: 'translateX(-50%)'*/}
+            {/* Trial for pop up form , position: 'absolute', left: '25%', transform: 'translateX(-50%)'
             <button className="bullsellbb" 
             style={{background: '#d4281c'}}
             onClick={openForm} >
             Buy / Sell Stock Button Popup Form (Not Working)
-            </button>
+            </button> */}
             
         
            {/* Click for Redirect*/}
-            <p><a href="http://localhost:3000/" onclick="centeredPopup(this.href,'myWindow','700','300','yes');return false">Home Page Redirect Link Only</a></p>        
+            {/* <p><a href="http://localhost:3000/" onclick="centeredPopup(this.href,'myWindow','700','300','yes');return false">Home Page Redirect Link Only</a></p>         */}
             
-            {/* need create new function and don't use on submit to update*/}                    
+            {/* need create new function and don't use on submit to update                     */}
             <form onSubmit={updatebs}> 
                 <fieldset style={{padding:4}}>
                     <legend>Update Stock Quantity</legend>
@@ -188,6 +189,11 @@ const Markets = () => {
                                 marginInline: 10,
                                 inlineSize: 100
                             }} type="number" id="Cost" />        
+                    Country:
+                    <input style={{
+                                marginInline: 10,
+                                inlineSize: 100
+                            }} type="text" id="Country" /> 
 
                     <button type='submit'
                     style={{
@@ -195,7 +201,16 @@ const Markets = () => {
                         marginBottom: 10,
                         cursor: PointerEvent,
                         maxWidth: 150,
-                        background: '#0e6d8a'}}>Update Button Not Working</button>
+                        background: '#0e6d8a'}}>Add  Button Not Working</button>
+                    
+                    <button type='submit'
+                    style={{
+                        borderRadius: 5,
+                        marginBottom: 10,
+                        cursor: PointerEvent,
+                        maxWidth: 150,
+                        background: '#0e6d8a'}}>Remove Button Not Working</button>
+
                      <p id="quantityupdate"></p>     
                 </fieldset>
             </form>
