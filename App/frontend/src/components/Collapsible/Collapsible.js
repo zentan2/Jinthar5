@@ -9,10 +9,12 @@ const Collapsible = (props) => {
     <div className="collapsible">
       <div className={open ? "content-show" : "content-parent"}>
         <button className="collapse-button" onClick={toggle}>
-          {props.label.symbol} Total Market Value ({props.label.currentPrice}):
-          //tbc//
-          {/* Daily P&L: {props.label.DailyPnL} */}
+          {props.label.Country} Total Market Value ({props.label.Country}):
+          {props.label.PortfolioMarketValueTotal}
+          Total Daily P&L: {props.label.PortfolioDailyPnLTotal}
+          Total Unrealised P&L: {props.label.PortfolioUnrealisedPnLTotal}
         </button>
+
         <div>
           {open && (
             <div className="content">

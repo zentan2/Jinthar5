@@ -34,7 +34,7 @@ fetch("http://127.0.0.1:5000/api/portfolio")
   })
   .catch((error) => console.error(error));
 
-fetch("http://127.0.0.1:5000/api/stocks/TSLA")
+fetch("http://127.0.0.1:5000/api/portfolio/total/SGD")
   .then((response) => response.json()) // one extra step
   .then((data) => {
     /**aggregate data here**/
@@ -74,7 +74,7 @@ fetch("http://127.0.0.1:5000/api/portfolio")
   })
   .catch((error) => console.error(error));
 
-fetch("http://127.0.0.1:5000/api/stocks/AAPL")
+fetch("http://127.0.0.1:5000/api/portfolio/total/USD")
   .then((response) => response.json()) // one extra step
   .then((data) => {
     /**aggregate data here**/
