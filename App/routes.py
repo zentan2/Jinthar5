@@ -20,6 +20,10 @@ def getAll_Porfolio():
 def getUser_Portfolio(Country):
     return processing.getUserPortfolio(Country)
 
+@app.route("/api/portfolio/stock/<ticker>", methods=["POST", "GET"])
+def getPortfolioStock(ticker):
+    return processing.getPortfolioStock(ticker)
+
 @app.route('/api/portfolio/add',methods=['GET','POST'])
 def addStock():
     ticker = request.form["ticker"]

@@ -34,6 +34,14 @@ def getAllPorfolio():
 def getUserPortfolio(Country):
     return jsonify({"Portfolio":[stocks.json() for stocks in Portfolio.query.filter_by(Country=Country.upper())]}), 200
 
+def getPortfolioStock(ticker):
+    stock = Portfolio.query.filter_by(Ticker=ticker.upper())
+    stockList = [stocks.json() for stocks in Portfolio.query.filter_by(Ticker=ticker.upper())]
+    if len(stockList) == 0:
+        return "Stock not found in portfolio"
+    else:
+        return stockList[0]
+    
 def getDf():
     df = pd.DataFrame([stocks.json() for stocks in Portfolio.query.all()])
     return df
