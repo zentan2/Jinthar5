@@ -106,7 +106,8 @@ def newTickerInfo(ticker, quantity, price):
 
 def addStock(ticker, quantity, price, country):
     if country.upper() == "SGD":
-        ticker += ".si"
+        if ".SI" not in ticker.upper():
+            ticker += ".si"
     newStock = newTickerInfo(ticker, quantity, price)
     if newStock == "Invalid Stock ticker":
         return newStock
