@@ -36,6 +36,9 @@ class Portfolio(db.Model):
 
     def getDailyPnL(self):
         return self.DailyPnL
+    
+    def getMarketValue(self):
+        return self.MarketValue
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

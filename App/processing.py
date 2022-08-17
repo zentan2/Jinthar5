@@ -40,11 +40,13 @@ def getPortfolioTotal(Country):
 def getPortfolioTotal2(Country):
     portfolioUnrealised = 0
     portfolioPnL = 0
+    portfolioMarketValue = 0
     for stocks in Portfolio.query.filter_by(Country=Country.upper()):
         portfolioUnrealised+=float(stocks.getUnrealisedPnL())
         portfolioPnL+=float(stocks.getDailyPnL())
+        portfolioMarketValue+=float(stocks.getMarketValue())
 
-    return jsonify({"Country": Country.upper(), "PortfolioUnrealisedPnLTotal":round(portfolioUnrealised,2), "PortfolioDailyPnLTotal": round(portfolioPnL,2)})
+    return jsonify({"Country": Country.upper(), "PortfolioUnrealisedPnLTotal":round(portfolioUnrealised,2), "PortfolioDailyPnLTotal": round(portfolioPnL,2), "PortfolioMarketValueTotal": round(portfolioMarketValue,2)})
 
 def getPortfolioDaily(Country):
     portfolioTotal = 0
