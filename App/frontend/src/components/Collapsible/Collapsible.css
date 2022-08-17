@@ -8,7 +8,7 @@
 
 table{ 
     width: 100%;
-    background-color:rgb(118, 133, 199);
+    background-color:#003B70;
 }
 th, td{
     width: 20%;
@@ -17,7 +17,7 @@ th, td{
 
 .content {
     /* border: 1px solid rgb(128, 123, 123); */
-    padding: 0px;
+    padding: 5px;
     border-radius: 5px;
     width: 100%;
 
@@ -34,12 +34,14 @@ th, td{
     height: auto;
     width: 100%;
     padding-bottom: 10px;
+    color: rgb(182, 182, 182);
+
 }
 
 .collapse-button {
     white-space: nowrap;
     border-radius: 3px;
-    background:rgb(118, 133, 199);
+    background:#003B70;
     /* border: none;     */
     color: #fff;
     cursor: pointer;

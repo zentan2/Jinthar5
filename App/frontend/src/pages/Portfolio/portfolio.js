@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import api from "../api";
 import Navbar from "../../components/Navbar";
 import Collapsible from "../../components/Collapsible/Collapsible";
+import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
 
 var SGList = new Array();
 var SGtable = new Array();
-var USList = new Array()
+var USList = new Array();
 var UStable = new Array();
 
 /********************************** SG TABLE **********************************/
@@ -23,7 +24,7 @@ fetch("http://127.0.0.1:5000/api/portfolio")
               <td>
                 {item.MarketValue} / {item.Quantity}
               </td>
-              <td>{item.Price}</td>
+              <td>{item.Price} / 0</td>
               <td>{item.DailyPnL}</td>
               <td>{item.UnrealisedPnL}</td>
             </tr>
@@ -86,20 +87,17 @@ fetch("http://127.0.0.1:5000/api/portfolio/total/USD")
   })
   .catch((error) => console.error(error));
 
-  /********************************** US TABLE **********************************/
-
-
+/********************************** US TABLE **********************************/
 
 const Portfolio = () => {
   return (
     <div className="Portfolio">
       <Navbar />
-      {/* <Collapsible/> */}
-      {/* <ul>{countryList}</ul> */}
       <table>
         {SGtable}
+        <hr></hr>
         {UStable}
-        </table>
+      </table>
     </div>
   );
 };

@@ -24,7 +24,7 @@ const Login = () => {
       e.target.password.value === "123456"
     ) {
       alert("Successfully logged in");
-      navigate('/markets');
+      navigate('/portfolio');
        
     } 
     else {
@@ -32,11 +32,11 @@ const Login = () => {
     }
   };
 
-  function handleClick (e){
-    e.preventDefault();
+  // function handleClick (e){
+  //   e.preventDefault();
 
-    alert("Goes to registration page");
-  };
+  //   alert("Goes to registration page");
+  // };
 
 
     return (
@@ -51,11 +51,11 @@ const Login = () => {
             <label htmlFor="password">Password </label>
             <input type="password" name="password" />
           </div>
-          <button className="primary">Enter</button>
+          <button className="primary">Log In</button>
         </form>
-        <button className="secondary" onClick={handleClick}>
+        {/* <button className="secondary" onClick={handleClick}>
           Create New Account!
-        </button>
+        </button> */}
       </div>
     );
   
