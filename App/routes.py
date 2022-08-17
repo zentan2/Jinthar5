@@ -1,10 +1,5 @@
 from flask import Flask, request, jsonify, flash
-import json
-import pandas as pd
-from App import app, db
-import yfinance as yf
-from App.forms import (StockUpdate, StockAdd, StockRemove)
-from .models import Portfolio
+from App import app
 from . import processing
 
 
@@ -24,24 +19,10 @@ def getAll_Porfolio():
 def getUser_Portfolio(Country):
     return processing.getUserPortfolio(Country)
 
-# @app.route("/api/portfolio/refresh", methods=["GET"])
-# def getAllPorfolioRefresh():
-    
-    # df = pd.DataFrame([stocks.json() for stocks in Portfolio.query.all()])
-    # df = retrieveStockUpdates(df)
-    # print(df.head())
-    # status = processing.test()
-    # return jsonify(status)
-#     df = retrieveStockUpdates(df)
-#     #add code to update to database
-#     return df.to_json(orient="records")
-
 @app.route('/api/portfolio/add',methods=['GET','POST'])
 def addStock():
-    addStockForm = StockAdd()
-    if addStockForm.validate_on_submit():
-        stock_add = Portfolio(name=addStockForm.name.data, ticker=addStockForm.ticker.data, country=addStockForm.country.data, cost=addStockForm.cost.data, quantity=addStockForm.quantity.data)
-        db.session.add(stock_add)
-        db.session.commit()
-        flash('Your stock has been added', 'success')
-    return render_template('successfuladdstock.html', form=addStockForm) 
+    ticker = request.form["ticker"]
+    price = float(request.form["price"]) 
+    quantity = float(request.form["quantity"])
+    country = request.form['country']
+    return processing.addStock(ticker, quantity, price, country)

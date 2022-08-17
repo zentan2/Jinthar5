@@ -19,18 +19,18 @@ class Portfolio(db.Model):
     # def __repr__(self):
     #     return '<Portfolio {}>'.format(self.Ticker)
 
-    def __init__(self, id, Ticker, Quantity, Price, Name, Country, MarketValue, DailyPnL, DailyPnLPercentage, UnrealisedPnL, UnrealisedPnLPercentage):
-        self.id = id
-        self.Ticker = Ticker
-        self.Quantity = Quantity
-        self.Price = Price
-        self.Name = Name
-        self.Country = Country
-        self.MarketValue = MarketValue
-        self.DailyPnL = DailyPnL
-        self.DailyPnLPercentage = DailyPnLPercentage
-        self.UnrealisedPnL = UnrealisedPnL
-        self.UnrealisedPnLPercentage = UnrealisedPnLPercentage
+    # def __init__(self, id, Ticker, Quantity, Price, Name, Country, MarketValue, DailyPnL, DailyPnLPercentage, UnrealisedPnL, UnrealisedPnLPercentage):
+    #     self.id = id
+    #     self.Ticker = Ticker
+    #     self.Quantity = Quantity
+    #     self.Price = Price
+    #     self.Name = Name
+    #     self.Country = Country
+    #     self.MarketValue = MarketValue
+    #     self.DailyPnL = DailyPnL
+    #     self.DailyPnLPercentage = DailyPnLPercentage
+    #     self.UnrealisedPnL = UnrealisedPnL
+    #     self.UnrealisedPnLPercentage = UnrealisedPnLPercentage
 
     def json(self):
         return{
@@ -40,7 +40,7 @@ class Portfolio(db.Model):
             "Price": self.Price, 
             "Name": self.Name, 
             "Country": self.Country, 
-            "MarketValue": Decimal(float(self.MarketValue)), 
+            "MarketValue": round(Decimal(float(self.MarketValue)),2), 
             "DailyPnL": self.DailyPnL, 
             "DailyPnLPercentage": self.DailyPnLPercentage, 
             "UnrealisedPnL": self.UnrealisedPnL, 
