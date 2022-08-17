@@ -1,71 +1,47 @@
-from flask import Flask, request, jsonify
-import json
-import pandas as pd
+from flask import Flask, request, jsonify, flash
 from App import app
-import yfinance as yf
-
 from .models import Portfolio
-
-def populatePortfolioInfo(portfolios):
-    # obtains stock information for all the stocks in the list
-    ###  change to retrieve data from sql!
-    portfolio = {}
-    tickers = yf.Tickers(" ".join(portfolios))
-
-    for stockTicker, stockInfo in tickers.tickers.items():
-        portfolio[stockTicker] = {
-            "name":stockInfo.info['shortName'],
-            "currentPrice":stockInfo.info['regularMarketPrice'],
-            "dailyPnL": stockInfo.info["regularMarketPrice"] - stockInfo.info["previousClose"],
-            "dailyPnLPercentage": round(((stockInfo.info["regularMarketPrice"] - stockInfo.info["previousClose"]) / stockInfo.info["previousClose"])*100,2),
-            "country": (stockInfo.info["currency"])
-        }  
-    return portfolio
-
-def retrieveStockUpdates(df):
-    tickers = list(set(df['Ticker']))
-    updatedPortfolioInfo = populatePortfolioInfo(tickers)
-    df['Name'] = df["Ticker"].apply(lambda x : updatedPortfolioInfo[x.upper()]["name"])
-    df['MarketValue'] = df["Ticker"].apply(lambda x : updatedPortfolioInfo[x.upper()]["currentPrice"])
-    df['country'] = df["Ticker"].apply(lambda x : updatedPortfolioInfo[x.upper()]["country"])
-    df['DailyPnL'] = df["Ticker"].apply(lambda x : updatedPortfolioInfo[x.upper()]["dailyPnL"])
-    df['DailyPnLPercentage'] = df["Ticker"].apply(lambda x : updatedPortfolioInfo[x.upper()]["dailyPnLPercentage"])
-    df['UnrealisedPnL'] = (df['MarketValue'] - df['Price']) * df['Quantity']
-    df['UnrealisedPnLPercentage'] = round(((df['MarketValue']-df['Price'])/df['Price'])*100,2)
-    return df
+from . import processing
 
 
 @app.route("/") #This is the route to the home page
 def index():
-    return "This is the homepage"
+    return "Service is running"
 
 @app.route("/api/stocks/<ticker>", methods=["POST", "GET"])
-def stockInfo(ticker):
-    #obtains information of a single stock
-    stockData = yf.Ticker(ticker)
-    if stockData.info['regularMarketPrice'] == None:
-        return "Invalid Stock ticker"
-    else:
-        stockDictionary = {
-            "symbol":stockData.info['symbol'],
-            "name":stockData.info['shortName'],
-            "currentPrice":stockData.info['regularMarketPrice'],
-            "dayHigh":stockData.info['dayHigh'],
-            "dayLow":stockData.info['dayLow'],
-        }
-    return json.dumps(stockDictionary)
+def stock_Info(ticker):
+    return jsonify(processing.stockInfo(ticker))
 
 @app.route("/api/portfolio", methods=["GET"])
-def getAllPorfolio():
-    return jsonify({"Portfolio":[stocks.json() for stocks in Portfolio.query.all()]}), 200
+def getAll_Porfolio():
+    return processing.getAllPorfolio()
 
 @app.route("/api/portfolio/<Country>", methods=["POST", "GET"])
-def getUserPortfolio(Country):
-    return jsonify({"Portfolio":[stocks.json() for stocks in Portfolio.query.filter_by(Country=Country.upper())]}), 200
+def getUser_Portfolio(Country):
+    return processing.getUserPortfolio(Country)
 
-# @app.route("/api/portfolio/refresh", methods=["GET"])
-# def getAllPorfolioRefresh(df=all_df):
-#     df = retrieveStockUpdates(df)
-#     #add code to update to database
-#     return df.to_json(orient="records")
+@app.route("/api/portfolio/total/<Country>", methods=["POST", "GET"])
+def getPortfolioTotal(Country):
+    return processing.getPortfolioTotal(Country)
 
+@app.route("/api/portfolio/stock/<ticker>", methods=["POST", "GET"])
+def getPortfolioStock(ticker):
+    return processing.getPortfolioStock(ticker)
+
+@app.route('/api/portfolio/add',methods=['GET','POST'])
+def addStock():
+    ticker = request.form["ticker"]
+    price = float(request.form["price"]) 
+    quantity = float(request.form["quantity"])
+    country = request.form['country']
+    return processing.addStock(ticker, quantity, price, country)
+
+@app.route('/api/portfolio/delete',methods=['GET','POST'])
+def removeStock():
+    ticker = request.form["ticker"]
+    country = request.form['country']
+    return processing.deleteStock(ticker, country)
+
+@app.route('/api/portfolio/refresh',methods=['GET'])
+def updatePortfolio():
+    return processing.refreshPortfolio()
