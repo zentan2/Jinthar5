@@ -49,3 +49,11 @@ python -m pip freeze > requirements.txt
 git fetch upstream
 
 git merge upstream/main
+
+
+## How to update the sqlite database
+1. update/add/remove the columns from the models.py
+2. go to init.py and remove flask run
+3. go to run.py and run the following
+# flask db migrate
+# flask db upgrade
