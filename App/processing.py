@@ -9,8 +9,6 @@ from flask import Flask, request, jsonify
 from App import db
 from sqlalchemy import select, text, column
 
-
-
 def stockInfo(ticker):
     #obtains information of a single stock
     stockData = yf.Ticker(ticker)
@@ -82,11 +80,6 @@ def retrieveStockUpdates(df):
     return df
 
 def refreshPortfolio():
-    # 1. get all the tickers, price, quantity in portfolio and loop through
-    #     2. using new ticker get info of all the new rows Needed
-    #     3. calculate unrealised pul
-    #     4. update row with data from 2 and 3 (you can update by passing in dict)
-    test = []
     for stockObjects in Portfolio.query.all():
         stock = stockObjects.json()
         ticker = stock['Ticker']
