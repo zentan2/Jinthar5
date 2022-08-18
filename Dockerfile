@@ -1,12 +1,12 @@
 # Use an official Python runtime as a parent image.
 FROM python:3.10.0
 # Create an /app folder inside the container.
-RUN mkdir /app
+RUN mkdir /App
 # Set the working directory inside the container to /app.
-WORKDIR /app
+WORKDIR /App
 # Port issues
 # Copy files from the current directory into the container's /app directory.
-COPY . /app
+COPY . /App
 # Install any needed packages specified in requirements.txt.
 RUN pip install --upgrade pip
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
