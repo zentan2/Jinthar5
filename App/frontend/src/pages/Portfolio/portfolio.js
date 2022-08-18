@@ -10,7 +10,7 @@ var USList = new Array();
 var UStable = new Array();
 
 /********************************** SG TABLE **********************************/
-fetch("http://127.0.0.1:5000/api/portfolio")
+fetch("https://linuxapacgtcb46.conygre.com:8443/console/project/flaskapi/overview/api/portfolio")
   .then((response) => response.json()) // one extra step
   .then((data) => {
     /**aggregate data here**/
@@ -35,7 +35,7 @@ fetch("http://127.0.0.1:5000/api/portfolio")
   })
   .catch((error) => console.error(error));
 
-fetch("http://127.0.0.1:5000/api/portfolio/total/SGD")
+fetch("https://linuxapacgtcb46.conygre.com:8443/console/project/flaskapi/overview/total/SGD")
   .then((response) => response.json()) // one extra step
   .then((data) => {
     /**aggregate data here**/
@@ -50,7 +50,7 @@ fetch("http://127.0.0.1:5000/api/portfolio/total/SGD")
 
 /********************************** US TABLE **********************************/
 
-fetch("http://127.0.0.1:5000/api/portfolio")
+fetch("https://linuxapacgtcb46.conygre.com:8443/console/project/flaskapi/overview/api/portfolio")
   .then((response) => response.json()) // one extra step
   .then((data) => {
     /**aggregate data here**/
@@ -75,7 +75,7 @@ fetch("http://127.0.0.1:5000/api/portfolio")
   })
   .catch((error) => console.error(error));
 
-fetch("http://127.0.0.1:5000/api/portfolio/total/USD")
+fetch("https://linuxapacgtcb46.conygre.com:8443/console/project/flaskapi/overview/api/portfolio/total/USD")
   .then((response) => response.json()) // one extra step
   .then((data) => {
     /**aggregate data here**/
