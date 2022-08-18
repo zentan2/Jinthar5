@@ -1,73 +1,105 @@
-import React from 'react'
-import api from '../api'
-import Navbar from '../../components/Navbar'
-import Collapsible from '../../components/Collapsible/Collapsible'
+import React, { useEffect } from "react";
+import api from "../api";
+import Navbar from "../../components/Navbar";
+import Collapsible from "../../components/Collapsible/Collapsible2";
 
-var countryList = [];
+var SGList = new Array();
+var SGtable = new Array();
+var USList = new Array()
+var UStable = new Array();
 
-fetch("http://127.0.0.1:5000/api/portfolio/SGD")
+/********************************** SG TABLE **********************************/
+fetch("http://127.0.0.1:5000/api/portfolio")
   .then((response) => response.json()) // one extra step
   .then((data) => {
     /**aggregate data here**/
-    // console.log("HELO",data.Portfolio[0].Country)
-    data.Portfolio.forEach((item, index) => {
-        // console.log(item.DailyPnL)
 
-      countryList.push(
-        <Collapsible label={item.DailyPnL}>
+    data.Portfolio.forEach((item, index) => {
+      if (item.Country == "SGD") {
+        SGList.push(
           <table>
             <tr>
-              <td>Country</td>
-              <td>Market Value</td>
-              <td>Name</td>
-            </tr>
-            <tr>
-              <td>{item.Country}</td>
-              <td>{item.MarketValue}</td>
               <td>{item.Name}</td>
+              <td>
+                {item.MarketValue} / {item.Quantity}
+              </td>
+              <td>{item.Price}</td>
+              <td>{item.DailyPnL}</td>
+              <td>{item.UnrealisedPnL}</td>
             </tr>
           </table>
-        </Collapsible>
-      );
+        );
+      }
     });
   })
   .catch((error) => console.error(error));
-console.log(countryList)
+
+fetch("http://127.0.0.1:5000/api/portfolio/total/SGD")
+  .then((response) => response.json()) // one extra step
+  .then((data) => {
+    /**aggregate data here**/
+    SGtable.push(
+      <Collapsible label={data}>
+        <ul>{SGList}</ul>
+      </Collapsible>
+    );
+  })
+  .catch((error) => console.error(error));
+/********************************** SG TABLE **********************************/
+
+/********************************** US TABLE **********************************/
+
+fetch("http://127.0.0.1:5000/api/portfolio")
+  .then((response) => response.json()) // one extra step
+  .then((data) => {
+    /**aggregate data here**/
+
+    data.Portfolio.forEach((item, index) => {
+      if (item.Country == "USD") {
+        USList.push(
+          <table>
+            <tr>
+              <td>{item.Name}</td>
+              <td>
+                {item.MarketValue} / {item.Quantity}
+              </td>
+              <td>{item.Price}</td>
+              <td>{item.DailyPnL}</td>
+              <td>{item.UnrealisedPnL}</td>
+            </tr>
+          </table>
+        );
+      }
+    });
+  })
+  .catch((error) => console.error(error));
+
+fetch("http://127.0.0.1:5000/api/portfolio/total/USD")
+  .then((response) => response.json()) // one extra step
+  .then((data) => {
+    /**aggregate data here**/
+    UStable.push(
+      <Collapsible label={data}>
+        <ul>{USList}</ul>
+      </Collapsible>
+    );
+  })
+  .catch((error) => console.error(error));
+
+  /********************************** US TABLE **********************************/
 
 const Portfolio = () => {
-    return (
-      <div className="Portfolio">
-        <Navbar/>
-  
-        <ul>{countryList}</ul>
-        {/* <Collapsible>
-          <h1>SG Markets</h1>
-          <p>
-            test
-          </p>
-    </Collapsible> */}
-      </div>
-    );
-  };
+  return (
+    <div className="Portfolio">
+      <Navbar />
+      {/* <Collapsible/> */}
+      {/* <ul>{countryList}</ul> */}
+      <table>
+        {SGtable}
+        {UStable}
+        </table>
+    </div>
+  );
+};
 
-{/*const Portfolio = () => {
-    return (
-        <div>
-            <Navbar/>
-            <p>
-                US Market Value (USD)   Total Assets:
-                <Collapsible label="US"/>
-            </p>
-            <p>
-                SG Market Value (SGD)   Total Assets:
-                <Collapsible label="SG"/>
-            </p>
-            <p>
-                HK Market Value (HKD)   Total Assets:
-                <Collapsible label="HK"/>
-            </p>
-        </div>
-    )
-}
-*/}
-export default Portfolio
+export default Portfolio;
