@@ -40,6 +40,14 @@ def addStock():
     country = request.json['country']
     return processing.addStock(ticker, quantity, price, country)
 
+@app.route('/api/portfolio/update',methods=['GET','POST'])
+def updateStock():
+    ticker = request.json['ticker']
+    price = float(request.json["price"]) 
+    quantity = float(request.json["quantity"])
+    country = request.json['country']
+    return processing.updateStock(ticker, quantity, price, country)
+
 @app.route('/api/portfolio/delete',methods=['GET','POST'])
 def removeStock():
     ticker = request.json["ticker"]
