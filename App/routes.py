@@ -63,3 +63,11 @@ def removeStock2():
     ticker = request.json["ticker"]
     country = request.json['country']
     return processing.deleteStock(ticker, country)
+
+@app.route('/api/portfolio/addTest',methods=['GET','POST'])
+def addStockTest():
+    ticker = request.form['ticker']
+    price = float(request.form["price"]) 
+    quantity = float(request.form["quantity"])
+    country = request.form['country']
+    return processing.addStock(ticker, quantity, price, country)
