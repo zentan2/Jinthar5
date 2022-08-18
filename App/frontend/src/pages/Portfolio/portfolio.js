@@ -49,7 +49,7 @@ var UStable = new Array();
         SGList.push(
           <table>
             <tr>
-              <td>{item.Name}</td>
+              <td>{item.Name} / {item.Ticker} </td>
               <td>
                 {item.MarketValue} / {item.Quantity}
               </td>
@@ -90,7 +90,7 @@ fetch("http://linuxapacgtcb46.conygre.com:8081/api/portfolio/total/SGD")
         USList.push(
           <table>
             <tr>
-              <td>{item.Name}</td>
+              <td>{item.Name} / {item.Ticker}</td>
               <td>
                 {item.MarketValue} / {item.Quantity}
               </td>
