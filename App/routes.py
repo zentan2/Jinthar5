@@ -71,3 +71,11 @@ def addStockTest():
     quantity = float(request.form["quantity"])
     country = request.form['country']
     return processing.addStock(ticker, quantity, price, country)
+
+@app.route('/api/portfolio/updateTest',methods=['GET','POST'])
+def updateStockTest():
+    ticker = request.form['ticker']
+    price = float(request.form["price"]) 
+    quantity = float(request.form["quantity"])
+    country = request.form['country']
+    return processing.updateStock(ticker, quantity, price, country)
