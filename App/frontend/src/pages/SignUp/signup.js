@@ -1,12 +1,11 @@
 import React from "react";
 import logo from "../../assets/citi.png";
-import './login.css';
+import './signup.css';
 import { useNavigate } from 'react-router-dom';
 
-
-const Login = () => {
+const SignUp = () => {
   const navigate = useNavigate();
-  document.title = 'Login';
+  document.title = 'Sign Up';
   function handleSubmit(e) {
     e.preventDefault();
     console.log(e.target.email.value);
@@ -20,29 +19,26 @@ const Login = () => {
     else if (!e.target.password.value) {
       alert("Password is required");
     } 
-    else if (
-      e.target.email.value === "me@example.com" &&
-      e.target.password.value === "123456"
-    ) {
-      alert("Successfully logged in");
-      navigate('/portfolio');
-       
+    else if (e.target.password.value === e.target.cpassword.value) {
+      alert("Successfully Signed Up");
+      navigate('/');      
     } 
     else {
-      alert("Wrong email or password combination");
+      alert("Password is not the same");
     }
   };
 
-  function handleClick (e){
-    e.preventDefault();
-    navigate('/signup')    
-  };
+ 
 
 
     return (
-      <div className="Login">
+      <div className="SignUp">
         <img src={logo} className="logo" alt="citi-logo" />
         <form className="form" onSubmit={handleSubmit}>
+        <div className="input-group">
+            <label htmlFor="name">Name </label>
+            <input type="name" name="name" />
+          </div>
           <div className="input-group">
             <label htmlFor="email">Email </label>
             <input type="email" name="email" />
@@ -51,14 +47,16 @@ const Login = () => {
             <label htmlFor="password">Password </label>
             <input type="password" name="password" />
           </div>
-          <button className="primary">Log In</button>
+          <div className="input-group">
+            <label htmlFor="cpassword">Confirm Password </label>
+            <input type="password" name="cpassword" />
+          </div>
+          <button className="primary">Sign Up</button>
         </form>
-        <button className="secondary" onClick={handleClick}>
-          Sign Up
-        </button>
+        
       </div>
     );
   
 }
 
-export default Login;
+export default SignUp;

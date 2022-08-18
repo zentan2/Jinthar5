@@ -91,6 +91,7 @@ fetch("http://flaskapi-flaskapi.linuxapacgtcb46.conygre.com/api/portfolio/total/
 /********************************** US TABLE **********************************/
 
 const Portfolio = () => {
+  document.title = 'Portfolio';
   return (
     <div className="Portfolio">
       <Navbar />

@@ -5,6 +5,8 @@ import './addremove.css';
 import { useNavigate } from 'react-router-dom';
 
 const AddRemove = () => {
+  document.title = 'Update';
+
   let [ticker, setTicker] = React.useState('')
   let [country, setCountry] = React.useState('')
   let [quantity, setQuantity] = React.useState('')
