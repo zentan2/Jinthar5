@@ -1,15 +1,11 @@
 import React from "react";
 import api from '../api'
 import Navbar from '../../components/Navbar'
-import './bstest.css';
+import './addremove.css';
 import { useNavigate } from 'react-router-dom';
-import axios from "axios"
 
-// var script = document.createElement('script');
-// script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
-// document.getElementsByTagName('head')[0].appendChild(script);
 
-const BSTest = () => {
+const AddRemove = () => {
   let [ticker, setTicker] = React.useState('')
   let [country, setCountry] = React.useState('')
   let [quantity, setQuantity] = React.useState('')
@@ -40,70 +36,7 @@ const BSTest = () => {
     text = ticker + " (" + country + ") with a quantity value of " + quantity + " at $" + price + " each!"; 
     alert(text)    
   };
-
-  // function overallUD(e) {
-  //   e.preventDefault();
-  //   let text;    
-  //   text = "You have " + ar + " " + ticker + " (" + country + ") with a quantity value of " + quantity + " at $" + price + " each!";
-  //   document.getElementById("oUD").style.color = 'white';
-  //   document.getElementById("oUD").innerHTML = text;    
-  // };
-
-  // async function postData() {
-  //   let user = {
-  //     Id: 78912,
-  //     Customer: "Jason Sweet",
-  //     Quantity: 1
-  //   }
-  
-  //   try {
-  //     const response = await axios.post("https://reqbin.com/echo/post/json", user)
-  //     console.log("Request successful!")
-  //   } catch (error) {
-  //     if (error.response) {
-  //       console.log(error.reponse.status)
-  //     } else {
-  //       console.log(error.message)
-  //     }
-  //   }
-  // }
-  // postData();
-
-  async function postData(url = '', data = {}) {
-    // Default options are marked with *
-    const response = await fetch(url, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(data) // body data type must match "Content-Type" header
-    });
-    return response.json(); // parses JSON response into native JavaScript objects
-  }
-
-  // $.ajax({
-  //   type: "POST",
-  //   url: "https://reqbin.com/echo/post/json",
-  //   data: `{
-  //     "Id": 78912,
-  //     "Customer": "Jason Sweet",
-  //   }`,
-  //   success: function (result) {
-  //      console.log(result);
-  //   },
-  //   dataType: "json"
-  // });
-
-          postData('http://127.0.0.1:5000/api/portfolio/add', { answer: 42 })
-          .then((data) => {
-          console.log(data); // JSON data parsed by `data.json()` call
-          }); 
+ 
   
     return (
       <div className="Stocks">
@@ -182,39 +115,13 @@ const BSTest = () => {
           
           <button className="Status" onClick={statusUD}>
             Status
-          </button>
-          
-          {/* POST request using fetch()
-          fetch("http://127.0.0.1:5000/api/portfolio/add",{
-     
-          
-          method: "POST",
-     
-          // Adding body or contents to send
-          body: JSON.stringify({
-          title: "foo",
-          body: "bar",
-          userId: 1
-          }),
-     
-          // Adding headers to the request
-          headers: {
-          "Content-type": "application/json; charset=UTF-8"
-            }
-          })
-
-           {/* Converting to JSON */}
-          {/* .then(response => response.json()) */}
- 
-           {/* Displaying results to console */}
-          {/* .then(json => console.log(json)); */}                     
-                  
+          </button>        
+                 
+               
           </div>
-          
-
-         
+                 
     );
   
 }
 
-export default BSTest;
+export default AddRemove;

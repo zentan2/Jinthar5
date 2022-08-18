@@ -114,4 +114,11 @@
   button.Remove:hover {
     background: #5ac5d3;
   }
+
+  button.Status {
+    background: #d08c0e;
+  }
+  button.Status:hover {
+    background: #5ac5d3;
+  }
  
