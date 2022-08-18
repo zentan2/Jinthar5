@@ -1,9 +1,7 @@
 Flask
-yfinance==0.1.74
-pandas==1.3.4
+yfinance
+pandas
 numpy
 flask-cors
-Flask-SQLAlchemy==2.5.1
+Flask-SQLAlchemy
 flask-migrate
-Flask-WTF==0.15.1
-WTForms==2.3.3

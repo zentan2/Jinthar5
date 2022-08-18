@@ -40,13 +40,12 @@ const Portfolio = () => {
         <Navbar/>
   
         <ul>{countryList}</ul>
-        <Collapsible>
-          <h1>introduction</h1>
+        {/* <Collapsible>
+          <h1>SG Markets</h1>
           <p>
-            The collapsible component puts long sections of the information under
-            a block enabling users to expand or collapse to access its details.
+            test
           </p>
-    </Collapsible>
+    </Collapsible> */}
       </div>
     );
   };
