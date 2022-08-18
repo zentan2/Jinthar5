@@ -121,6 +121,7 @@ fetch("http://linuxapacgtcb46.conygre.com:8081/api/portfolio/total/USD")
 
 const Portfolio = () => {
 
+  document.title = 'Portfolio';
   return (
     <div className="Portfolio">
     <Navbar/>

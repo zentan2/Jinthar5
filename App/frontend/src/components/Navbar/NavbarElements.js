@@ -1,6 +1,8 @@
 // import { FaBars } from 'react-icons/fa';
-import { NavLink as Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { NavLink as Link } from "react-router-dom";
+import styled from "styled-components";
+import Collapsible from "../../components/Collapsible/Collapsible";
+
 
 //Navigation Bar
 export const Nav = styled.nav`
@@ -8,7 +10,7 @@ export const Nav = styled.nav`
   width: 100%;
   top: 0;
   left: 0;
-  background: #003B70;
+  background: #003b70;
   height: 64px;
   display: flex;
   justify-content: space-between;
@@ -22,7 +24,7 @@ export const NavLink = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
