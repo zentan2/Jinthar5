@@ -14,7 +14,7 @@ function Example2() {
   let handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch("http://127.0.0.1:5000/api/portfolio/add", {
+      let res = await fetch("http://flaskapi-flaskapi.linuxapacgtcb46.conygre.com/api/portfolio/add", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
