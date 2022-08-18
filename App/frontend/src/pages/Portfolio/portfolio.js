@@ -3,6 +3,7 @@ import api from "../api";
 import Navbar from "../../components/Navbar";
 import Collapsible from "../../components/Collapsible/Collapsible";
 import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
+import "./portfolio.css";
 
 var SGList = new Array();
 var SGtable = new Array();

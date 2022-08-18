@@ -50,5 +50,6 @@ th, td{
     max-width: 1080px;
     padding: 10px 60px;
     transition: background 0.3s;
+    height: 30px;
   }
 

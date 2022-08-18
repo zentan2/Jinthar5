@@ -31,7 +31,7 @@ export const NavLink = styled(Link)`
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-decoration-color: #fff;
-    text-underline-offset: 8px;
+    text-underline-offset: 2px;
   }
 `;
 
