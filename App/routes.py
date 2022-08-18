@@ -60,8 +60,8 @@ def updatePortfolio():
 
 @app.route('/api/portfolio/deleteTest',methods=['GET','POST'])
 def removeStock2():
-    ticker = request.json["ticker"]
-    country = request.json['country']
+    ticker = request.form["ticker"]
+    country = request.form['country']
     return processing.deleteStock(ticker, country)
 
 @app.route('/api/portfolio/addTest',methods=['GET','POST'])
