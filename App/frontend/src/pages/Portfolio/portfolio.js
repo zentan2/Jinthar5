@@ -2,8 +2,8 @@ import React, { useState, useCallback } from "react";
 import api from "../api";
 import Navbar from "../../components/Navbar";
 import Collapsible from "../../components/Collapsible/Collapsible";
-import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
 import "./portfolio.css";
+import { Nav } from "../../components/Navbar/NavbarElements";
 
 var SGList = new Array();
 var SGtable = new Array();
@@ -11,7 +11,35 @@ var USList = new Array();
 var UStable = new Array();
 
 /********************************** SG TABLE **********************************/
-fetch("http://flaskapi-flaskapi.linuxapacgtcb46.conygre.com/api/portfolio")
+
+// function getSG() {
+// fetch("http://linuxapacgtcb46.conygre.com:8081/api/portfolio")
+//  .then(response => {response.json(); })
+//  .then((data) => {
+//     data.Portfolio.forEach((item, index) => {
+    
+//           var SGlist= "";
+//           if (item.Country == "SGD") {
+         
+//             SGlist+="<table>"
+//             SGlist += "<tr>";
+//             SGlist += "<td>"+item.Name+"</td>";
+//             SGlist+= "<td>" + item.MarketValue + "/" + item.Quantity + "</td>";
+//             SGlist+=  "<td>" + item.Price + "</td>";
+//             SGlist+= "<td>" + item.DailyPnL + "</td>";
+//             SGlist+="<td>" + item.UnrealisedPnL + "</td>";
+//             SGlist += "</tr>";
+//             SGlist+= "</table>"
+        
+//       }
+//       document.getElementById("tbodyitems").innerHTML = SGlist;
+//     });
+    
+//   })
+//   .catch((error) => console.error(error));
+// }
+
+ fetch("http://linuxapacgtcb46.conygre.com:8081/api/portfolio")
   .then((response) => response.json()) // one extra step
   .then((data) => {
     /**aggregate data here**/
@@ -25,7 +53,7 @@ fetch("http://flaskapi-flaskapi.linuxapacgtcb46.conygre.com/api/portfolio")
               <td>
                 {item.MarketValue} / {item.Quantity}
               </td>
-              <td>{item.Price} / 0</td>
+              <td>{item.Price}</td>
               <td>{item.DailyPnL}</td>
               <td>{item.UnrealisedPnL}</td>
             </tr>
@@ -36,7 +64,7 @@ fetch("http://flaskapi-flaskapi.linuxapacgtcb46.conygre.com/api/portfolio")
   })
   .catch((error) => console.error(error));
 
-fetch("http://flaskapi-flaskapi.linuxapacgtcb46.conygre.com/api/portfolio/total/SGD")
+fetch("http://linuxapacgtcb46.conygre.com:8081/api/portfolio/total/SGD")
   .then((response) => response.json()) // one extra step
   .then((data) => {
     /**aggregate data here**/
@@ -47,11 +75,12 @@ fetch("http://flaskapi-flaskapi.linuxapacgtcb46.conygre.com/api/portfolio/total/
     );
   })
   .catch((error) => console.error(error));
+
 /********************************** SG TABLE **********************************/
 
 /********************************** US TABLE **********************************/
 
-fetch("http://flaskapi-flaskapi.linuxapacgtcb46.conygre.com/api/portfolio")
+ fetch("http://linuxapacgtcb46.conygre.com:8081/api/portfolio")
   .then((response) => response.json()) // one extra step
   .then((data) => {
     /**aggregate data here**/
@@ -76,7 +105,7 @@ fetch("http://flaskapi-flaskapi.linuxapacgtcb46.conygre.com/api/portfolio")
   })
   .catch((error) => console.error(error));
 
-fetch("http://flaskapi-flaskapi.linuxapacgtcb46.conygre.com/api/portfolio/total/USD")
+fetch("http://linuxapacgtcb46.conygre.com:8081/api/portfolio/total/USD")
   .then((response) => response.json()) // one extra step
   .then((data) => {
     /**aggregate data here**/
@@ -91,15 +120,15 @@ fetch("http://flaskapi-flaskapi.linuxapacgtcb46.conygre.com/api/portfolio/total/
 /********************************** US TABLE **********************************/
 
 const Portfolio = () => {
+
   return (
     <div className="Portfolio">
-      <Navbar />
-      <table>
-        {SGtable}
-        <hr></hr>
-        {UStable}
-      </table>
+    <Navbar/>
+      <table>{SGtable}</table>
+      <hr></hr>
+      <table>{UStable}</table>
     </div>
+    
   );
 };
 

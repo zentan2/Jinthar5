@@ -14,7 +14,7 @@ const AddRemove = () => {
    let handleSubmitAdd = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch("http://flaskapi-flaskapi.linuxapacgtcb46.conygre.com/api/portfolio/add", {
+      let res = await fetch("http://linuxapacgtcb46.conygre.com:8081/api/portfolio/add", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -48,7 +48,7 @@ const AddRemove = () => {
   let handleSubmitRemove = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch("http://127.0.0.1:5000/api/portfolio/delete", {
+      let res = await fetch("http://linuxapacgtcb46.conygre.com:8081/api/portfolio/delete", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -82,7 +82,7 @@ const AddRemove = () => {
   let handleSubmitEdit = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch("http://127.0.0.1:5000/api/portfolio/update", {
+      let res = await fetch("http://linuxapacgtcb46.conygre.com:8081/api/portfolio/update", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

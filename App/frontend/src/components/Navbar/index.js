@@ -10,10 +10,11 @@ import {
 import logo from '../../assets/citi.png';
 
 const Navbar = () => {
+  
   return (
     <>
       <Nav>
-        <NavLink to='/'>
+        <NavLink to='/portfolio'>
           <img src={logo} alt='logo' width="150" height="110"/>
         </NavLink>
         {/* <Bars /> */}
