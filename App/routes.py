@@ -20,24 +20,38 @@ def getAll_Porfolio():
 def getUser_Portfolio(Country):
     return processing.getUserPortfolio(Country)
 
+@app.route("/api/portfolio/total/<Country>", methods=["POST", "GET"])
+def getPortfolioTotal(Country):
+    return processing.getPortfolioTotal2(Country)
+
+@app.route("/api/portfolio/daily/<Country>", methods=["POST", "GET"])
+def getPortfolioDaily(Country):
+    return processing.getPortfolioDaily(Country)
+
 @app.route("/api/portfolio/stock/<ticker>", methods=["POST", "GET"])
 def getPortfolioStock(ticker):
     return processing.getPortfolioStock(ticker)
 
 @app.route('/api/portfolio/add',methods=['GET','POST'])
 def addStock():
-    ticker = request.form["ticker"]
-    price = float(request.form["price"]) 
-    quantity = float(request.form["quantity"])
-    country = request.form['country']
+    ticker = request.json['ticker']
+    price = float(request.json["price"]) 
+    quantity = float(request.json["quantity"])
+    country = request.json['country']
     return processing.addStock(ticker, quantity, price, country)
 
 @app.route('/api/portfolio/delete',methods=['GET','POST'])
 def removeStock():
-    ticker = request.form["ticker"]
-    country = request.form['country']
+    ticker = request.json["ticker"]
+    country = request.json['country']
     return processing.deleteStock(ticker, country)
 
 @app.route('/api/portfolio/refresh',methods=['GET'])
 def updatePortfolio():
     return processing.refreshPortfolio()
+
+@app.route('/api/portfolio/deleteTest',methods=['GET','POST'])
+def removeStock2():
+    ticker = request.json["ticker"]
+    country = request.json['country']
+    return processing.deleteStock(ticker, country)

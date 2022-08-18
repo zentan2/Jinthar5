@@ -31,6 +31,15 @@ class Portfolio(db.Model):
     def getTickers(self):
         return self.Ticker
 
+    def getUnrealisedPnL(self):
+        return self.UnrealisedPnL
+
+    def getDailyPnL(self):
+        return self.DailyPnL
+    
+    def getMarketValue(self):
+        return self.MarketValue
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
