@@ -69,7 +69,7 @@ def populatePortfolioInfo(portfolios):
     # obtains stock information for all the stocks in the list
     ###  change to retrieve data from sql!
     portfolio = {}
-    tickers = yf.Tickers(" ".join(portfolios))
+    tickers = yf.Tickers(" ".join(portfolios),threads=True)
 
     for stockTicker, stockInfo in tickers.tickers.items():
         portfolio[stockTicker] = {
@@ -150,6 +150,16 @@ def addStock(ticker, quantity, price, country):
         db.session.add(portfolioObject)
         db.session.commit()
         
+    return "success"
+
+def updateStock(ticker, quantity, price, country):
+    if country.upper() == "SGD":
+        if ".SI" not in ticker.upper():
+            ticker += ".si"
+    stock = newTickerInfo(ticker, int(quantity), float(price))
+    Portfolio.query.filter_by(Ticker=ticker).update(stock)
+    db.session.commit()
+    
     return "success"
 
 def deleteStock(ticker, country):
