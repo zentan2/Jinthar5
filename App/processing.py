@@ -3,9 +3,8 @@ from traceback import print_last
 import pandas as pd
 from .models import Portfolio
 import yfinance as yf
-import json
 import pandas as pd
-from flask import Flask, request, jsonify
+from flask import request, jsonify
 from App import db
 from sqlalchemy import select, text, column
 
@@ -126,29 +125,66 @@ def newTickerInfo(ticker, quantity, price):
         }
         return newTicker
 
+# def addStock(ticker, quantity, price, country):
+#     if country.upper() == "SGD":
+#         if ".SI" not in ticker.upper():
+#             ticker += ".si"
+#     newStock = newTickerInfo(ticker, quantity, price)
+#     if newStock == "Invalid Stock ticker":
+#         return newStock
+#     else:
+#         print(newStock)
+#         portfolioObject = Portfolio(
+#             Ticker = newStock['Ticker'], 
+#             Quantity = newStock['Quantity'],
+#             Price = newStock['Price'], 
+#             Name = newStock['Name'], 
+#             Country = newStock['Country'], 
+#             MarketValue = newStock['MarketValue'], 
+#             DailyPnL = newStock['DailyPnL'], 
+#             DailyPnLPercentage = newStock['DailyPnLPercentage'], 
+#             UnrealisedPnL = newStock['UnrealisedPnL'], 
+#             UnrealisedPnLPercentage = newStock['UnrealisedPnLPercentage']
+#             )
+#         db.session.add(portfolioObject)
+#         db.session.commit()
+        
+#     return "success"
+
 def addStock(ticker, quantity, price, country):
     if country.upper() == "SGD":
         if ".SI" not in ticker.upper():
             ticker += ".si"
-    newStock = newTickerInfo(ticker, quantity, price)
-    if newStock == "Invalid Stock ticker":
-        return newStock
+    tickerInfo = getPortfolioStock(ticker)
+
+    if tickerInfo != "Stock not found in portfolio":
+        print("yes")
+        oldQuantity = int(tickerInfo['Quantity'])
+        oldPrice = float(tickerInfo['Price'])
+        price = ((oldQuantity * oldPrice) + (price * quantity)) / (oldQuantity + quantity)
+        quantity = oldQuantity + quantity
+        return updateStock(ticker, quantity, price, country)
+
     else:
-        print(newStock)
-        portfolioObject = Portfolio(
-            Ticker = newStock['Ticker'], 
-            Quantity = newStock['Quantity'],
-            Price = newStock['Price'], 
-            Name = newStock['Name'], 
-            Country = newStock['Country'], 
-            MarketValue = newStock['MarketValue'], 
-            DailyPnL = newStock['DailyPnL'], 
-            DailyPnLPercentage = newStock['DailyPnLPercentage'], 
-            UnrealisedPnL = newStock['UnrealisedPnL'], 
-            UnrealisedPnLPercentage = newStock['UnrealisedPnLPercentage']
-            )
-        db.session.add(portfolioObject)
-        db.session.commit()
+        newStock = newTickerInfo(ticker, quantity, price)
+        if newStock == "Invalid Stock ticker":
+            return newStock
+        else:
+            print(newStock)
+            portfolioObject = Portfolio(
+                Ticker = newStock['Ticker'], 
+                Quantity = newStock['Quantity'],
+                Price = newStock['Price'], 
+                Name = newStock['Name'], 
+                Country = newStock['Country'], 
+                MarketValue = newStock['MarketValue'], 
+                DailyPnL = newStock['DailyPnL'], 
+                DailyPnLPercentage = newStock['DailyPnLPercentage'], 
+                UnrealisedPnL = newStock['UnrealisedPnL'], 
+                UnrealisedPnLPercentage = newStock['UnrealisedPnLPercentage']
+                )
+            db.session.add(portfolioObject)
+            db.session.commit()
         
     return "success"
 
@@ -157,7 +193,7 @@ def updateStock(ticker, quantity, price, country):
         if ".SI" not in ticker.upper():
             ticker += ".si"
     stock = newTickerInfo(ticker, int(quantity), float(price))
-    Portfolio.query.filter_by(Ticker=ticker).update(stock)
+    Portfolio.query.filter_by(Ticker=ticker.upper()).update(stock)
     db.session.commit()
     
     return "success"

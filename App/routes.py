@@ -60,6 +60,22 @@ def updatePortfolio():
 
 @app.route('/api/portfolio/deleteTest',methods=['GET','POST'])
 def removeStock2():
-    ticker = request.json["ticker"]
-    country = request.json['country']
+    ticker = request.form["ticker"]
+    country = request.form['country']
     return processing.deleteStock(ticker, country)
+
+@app.route('/api/portfolio/addTest',methods=['GET','POST'])
+def addStockTest():
+    ticker = request.form['ticker']
+    price = float(request.form["price"]) 
+    quantity = float(request.form["quantity"])
+    country = request.form['country']
+    return processing.addStock(ticker, quantity, price, country)
+
+@app.route('/api/portfolio/updateTest',methods=['GET','POST'])
+def updateStockTest():
+    ticker = request.form['ticker']
+    price = float(request.form["price"]) 
+    quantity = float(request.form["quantity"])
+    country = request.form['country']
+    return processing.updateStock(ticker, quantity, price, country)

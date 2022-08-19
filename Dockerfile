@@ -10,6 +10,7 @@ COPY . /App
 # Install any needed packages specified in requirements.txt.
 RUN pip install --upgrade pip
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
+RUN chmod 777 app.db
 # Make port 8090 available to the world outside this container.
 EXPOSE 8090
 # Run main.py when the container launches.
