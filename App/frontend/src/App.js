@@ -14,16 +14,10 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/markets" element={<Markets />} />
         <Route path="/portfolio" element={<Portfolio />} />
-<<<<<<< HEAD
-      </Routes>
-    </Router>
-
-=======
         <Route path="/addremove" element={<AddRemove />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Router>
->>>>>>> origin/janel-fe
   );
 }
 
