@@ -20,11 +20,13 @@
     align-items: center;
     display: flex;
     height: 100%;
-    justify-content: center;
+    justify-content: start;
   }
   
 .Portfolio {
     background: '#fff';
-    padding: '5%';
-    font-family: '"Lucida Console", Monaco, monospace'
+    padding: '15%';
+    font-family: 'Open Sans', sans-serif;
+
 }
+

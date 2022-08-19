@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/janel-fe
 .collapsible {
     display: grid;
     row-gap: 50px;
@@ -7,7 +11,11 @@
 
 table{ 
     width: 100%;
+<<<<<<< HEAD
     background-color:rgb(118, 133, 199);
+=======
+    background-color:#003B70;
+>>>>>>> origin/janel-fe
 }
 th, td{
     width: 20%;
@@ -16,7 +24,11 @@ th, td{
 
 .content {
     /* border: 1px solid rgb(128, 123, 123); */
+<<<<<<< HEAD
     padding: 0px;
+=======
+    padding: 5px;
+>>>>>>> origin/janel-fe
     border-radius: 5px;
     width: 100%;
 
@@ -33,12 +45,21 @@ th, td{
     height: auto;
     width: 100%;
     padding-bottom: 10px;
+<<<<<<< HEAD
+=======
+    color: rgb(182, 182, 182);
+
+>>>>>>> origin/janel-fe
 }
 
 .collapse-button {
     white-space: nowrap;
     border-radius: 3px;
+<<<<<<< HEAD
     background:rgb(118, 133, 199);
+=======
+    background:#003B70;
+>>>>>>> origin/janel-fe
     /* border: none;     */
     color: #fff;
     cursor: pointer;
@@ -47,4 +68,10 @@ th, td{
     max-width: 1080px;
     padding: 10px 60px;
     transition: background 0.3s;
+<<<<<<< HEAD
 }
+=======
+    height: 30px;
+  }
+
+>>>>>>> origin/janel-fe
