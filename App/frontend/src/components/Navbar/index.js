@@ -19,13 +19,13 @@ const Navbar = () => {
           <img src={logo} alt="logo" width="150" height="110" />
         </NavLink>
         <NavMenu>
-          <NavLink to="/portfolio" activeStyle>
+          <NavLink to="/#/portfolio" activeStyle>
             Portfolio
           </NavLink>
-          <NavLink to="/markets" activeStyle>
+          <NavLink to="/#/markets" activeStyle>
             Markets
           </NavLink>
-          <NavLink to="/addremove" activeStyle>
+          <NavLink to="/#/addremove" activeStyle>
             Update Stock
           </NavLink>
           <NavLink to="/" activeStyle>
