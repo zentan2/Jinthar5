@@ -22,8 +22,8 @@ const Collapsible = (props) => {
               <table>
                 <tr>
                   <th>Name/Ticker Symbol</th>
-                  <th>MV/Qty</th>
-                  <th>Price</th>
+                  <th>Price/Qty</th>
+                  <th>Cost</th>
                   <th>Daily Profit and Loss</th>
                   <th>Unrealised Profit and Loss</th>
                 </tr>
